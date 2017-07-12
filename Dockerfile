@@ -39,5 +39,7 @@ RUN curl -o go.tar.gz https://storage.googleapis.com/golang/go1.8.3.linux-amd64.
     rm go.tar.gz
 
 # setup node.js environment
+## Why exec `npm install -g npm@latest`? see https://github.com/npm/npm/issues/16896
 ENV PATH=/root/.nodebrew/current/bin:$PATH
-RUN curl -L git.io/nodebrew | perl - setup && nodebrew install-binary v8 && nodebrew use v8
+RUN curl -L git.io/nodebrew | perl - setup && nodebrew install-binary v8 && nodebrew use v8 && \
+    npm install -g npm@latest
