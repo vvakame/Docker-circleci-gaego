@@ -8,7 +8,7 @@ WORKDIR /work
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        tzdata \
+        tzdata xvfb \
         curl ca-certificates \
         build-essential git unzip \
         python && \
