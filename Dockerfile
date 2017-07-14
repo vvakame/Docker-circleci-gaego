@@ -8,7 +8,7 @@ WORKDIR /work
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        tzdata xvfb \
+        tzdata xvfb vim \
         curl ca-certificates \
         build-essential git unzip \
         python && \
@@ -44,3 +44,13 @@ RUN curl -o go.tar.gz https://storage.googleapis.com/golang/go1.8.3.linux-amd64.
 ENV PATH=/root/.nodebrew/current/bin:$PATH
 RUN curl -L git.io/nodebrew | perl - setup && nodebrew install-binary v8 && nodebrew use v8 && \
     npm install -g npm@latest
+
+# setup browser environment
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends libappindicator1 && \
+    curl --silent --show-error --location --fail --retry 3 -o google-chrome-stable_current_amd64.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+    (dpkg -i google-chrome-stable_current_amd64.deb || apt-get -fy install) && \
+    rm -rf google-chrome-stable_current_amd64.deb && \
+    sed -i 's|HERE/chrome"|HERE/chrome" --disable-setuid-sandbox --no-sandbox|g' /opt/google/chrome/google-chrome && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
