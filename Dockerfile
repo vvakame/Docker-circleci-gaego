@@ -3,6 +3,10 @@ MAINTAINER vvakame <vvakame@gmail.com>
 
 # GAE/Go build & testing environment for Circle CI 2.0
 
+ENV GAE_VERSION 1.9.55
+ENV GOLANG_VERSION 1.8.3
+ENV NODEJS_VERSION v8
+
 RUN mkdir /work
 WORKDIR /work
 
@@ -22,19 +26,19 @@ RUN curl -o google-cloud-sdk.tar.gz https://dl.google.com/dl/cloudsdk/channels/r
     rm google-cloud-sdk.tar.gz && \
     ./google-cloud-sdk/install.sh --quiet && \
     gcloud components update --quiet && \
-    gcloud --quiet components install app-engine-go 
+    gcloud --quiet components install app-engine-go
 # RUN gcloud --quiet components install docker-credential-gcr kubectl alpha beta
 
 # setup GAE/Go Standard Environment SDK
 ENV PATH=$PATH:/work/go_appengine
-RUN curl -o go_appengine_sdk.zip https://storage.googleapis.com/appengine-sdks/featured/go_appengine_sdk_linux_amd64-1.9.55.zip && \
+RUN curl -o go_appengine_sdk.zip https://storage.googleapis.com/appengine-sdks/featured/go_appengine_sdk_linux_amd64-${GAE_VERSION}.zip && \
     unzip go_appengine_sdk.zip && \
     rm go_appengine_sdk.zip
 
 # setup go environment
 ENV PATH=$PATH:/go/bin:/usr/local/go/bin
 ENV GOPATH=/go
-RUN curl -o go.tar.gz https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz && \
+RUN curl -o go.tar.gz https://storage.googleapis.com/golang/go${GOLANG_VERSION}.linux-amd64.tar.gz && \
     tar -zxvf go.tar.gz && \
     mv go /usr/local && \
     rm go.tar.gz
@@ -42,7 +46,7 @@ RUN curl -o go.tar.gz https://storage.googleapis.com/golang/go1.8.3.linux-amd64.
 # setup node.js environment
 ## Why exec `npm install -g npm@latest`? see https://github.com/npm/npm/issues/16896
 ENV PATH=/root/.nodebrew/current/bin:$PATH
-RUN curl -L git.io/nodebrew | perl - setup && nodebrew install-binary v8 && nodebrew use v8 && \
+RUN curl -L git.io/nodebrew | perl - setup && nodebrew install-binary ${NODEJS_VERSION} && nodebrew use ${NODEJS_VERSION} && \
     npm install -g npm@latest
 
 # setup browser environment
