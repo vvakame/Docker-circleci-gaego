@@ -3,7 +3,7 @@ MAINTAINER vvakame <vvakame@gmail.com>
 
 # GAE/Go build & testing environment for Circle CI 2.0
 
-ENV GAE_VERSION 1.9.55
+ENV GAE_VERSION 1.9.56
 ENV GOLANG_VERSION 1.8.3
 ENV NODEJS_VERSION v8
 
@@ -44,10 +44,8 @@ RUN curl -o go.tar.gz https://storage.googleapis.com/golang/go${GOLANG_VERSION}.
     rm go.tar.gz
 
 # setup node.js environment
-## Why exec `npm install -g npm@latest`? see https://github.com/npm/npm/issues/16896
 ENV PATH=/root/.nodebrew/current/bin:$PATH
-RUN curl -L git.io/nodebrew | perl - setup && nodebrew install-binary ${NODEJS_VERSION} && nodebrew use ${NODEJS_VERSION} && \
-    npm install -g npm@latest
+RUN curl -L git.io/nodebrew | perl - setup && nodebrew install-binary ${NODEJS_VERSION} && nodebrew use ${NODEJS_VERSION}
 
 # setup browser environment
 RUN apt-get update && \
