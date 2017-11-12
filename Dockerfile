@@ -26,7 +26,7 @@ RUN curl -o google-cloud-sdk.tar.gz https://dl.google.com/dl/cloudsdk/channels/r
     rm google-cloud-sdk.tar.gz && \
     ./google-cloud-sdk/install.sh --quiet && \
     gcloud --quiet components install app-engine-go && \
-    chmod +x /work/google-cloud-sdk/platform/google_appengine/{goapp,appcfg.py}
+    chmod +x /work/google-cloud-sdk/platform/google_appengine/goapp /work/google-cloud-sdk/platform/google_appengine/appcfg.py
 # RUN gcloud --quiet components install docker-credential-gcr kubectl alpha beta
 
 # setup go environment
