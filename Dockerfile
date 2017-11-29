@@ -5,7 +5,7 @@ LABEL maintainer="vvakame@gmail.com"
 
 ENV GCLOUD_SDK_VERSION 179.0.0
 ENV GOLANG_VERSION 1.8.5
-ENV GOLANG_DEP_VERSION 0.3.2
+ENV DEP_VERSION 0.3.2
 ENV NODEJS_VERSION v8
 
 RUN mkdir /work
@@ -39,7 +39,7 @@ RUN curl -o go.tar.gz https://storage.googleapis.com/golang/go${GOLANG_VERSION}.
     rm go.tar.gz
 
 # setup golang/dep
-RUN curl -fsSL -o /usr/local/bin/dep https://github.com/golang/dep/releases/download/v${GOLANG_DEP_VERSION}/dep-linux-amd64 && \
+RUN curl -fsSL -o /usr/local/bin/dep https://github.com/golang/dep/releases/download/v${DEP_VERSION}/dep-linux-amd64 && \
     chmod +x /usr/local/bin/dep
 
 # setup node.js environment
