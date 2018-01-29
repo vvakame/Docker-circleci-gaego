@@ -1,17 +1,18 @@
-FROM ubuntu:17.10
+FROM ubuntu:18.04
 LABEL maintainer="vvakame@gmail.com"
 
 # GAE/Go build & testing environment for Circle CI 2.0
 
-ENV GCLOUD_SDK_VERSION 183.0.0
+ENV GCLOUD_SDK_VERSION 186.0.0
 ENV GOLANG_VERSION 1.8.5
-ENV DEP_VERSION 0.3.2
+ENV DEP_VERSION 0.4.1
 ENV NODEJS_VERSION v8
 
 RUN mkdir /work
 WORKDIR /work
 
 RUN apt-get update && \
+    ln -sf /usr/share/zoneinfo/UTC /etc/localtime && \
     apt-get install -y --no-install-recommends \
         tzdata xvfb vim \
         curl ca-certificates \
