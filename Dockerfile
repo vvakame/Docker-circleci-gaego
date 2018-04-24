@@ -3,10 +3,10 @@ LABEL maintainer="vvakame@gmail.com"
 
 # GAE/Go build & testing environment for Circle CI 2.0
 
-ENV GCLOUD_SDK_VERSION 194.0.0
-ENV GOLANG_VERSION 1.10
+ENV GCLOUD_SDK_VERSION 199.0.0
+ENV GOLANG_VERSION 1.10.1
 ENV DEP_VERSION 0.4.1
-ENV NODEJS_VERSION v8
+ENV NODEJS_VERSION v10
 
 RUN mkdir /work
 WORKDIR /work
@@ -34,7 +34,7 @@ RUN curl -o google-cloud-sdk.tar.gz https://dl.google.com/dl/cloudsdk/channels/r
 # setup go environment
 ENV PATH=$PATH:/go/bin:/usr/local/go/bin
 ENV GOPATH=/go
-RUN curl -o go.tar.gz https://storage.googleapis.com/golang/go${GOLANG_VERSION}.linux-amd64.tar.gz && \
+RUN curl -o go.tar.gz -L https://dl.google.com/go/go${GOLANG_VERSION}.linux-amd64.tar.gz && \
     tar -zxf go.tar.gz && \
     mv go /usr/local && \
     rm go.tar.gz
