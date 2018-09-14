@@ -17,6 +17,7 @@ RUN apt-get update && \
         tzdata xvfb vim \
         curl ca-certificates \
         build-essential git unzip \
+        ssh \
         python && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
