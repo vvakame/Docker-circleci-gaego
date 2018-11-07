@@ -4,7 +4,7 @@ LABEL maintainer="vvakame@gmail.com"
 # GAE/Go build & testing environment for Circle CI 2.0
 
 ENV GCLOUD_SDK_VERSION 224.0.0
-ENV GOLANG_VERSION 1.11.1
+ENV GOLANG_VERSION 1.11.2
 ENV DEP_VERSION 0.5.0
 ENV NODEJS_VERSION v10
 
