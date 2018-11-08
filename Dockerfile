@@ -4,6 +4,8 @@ LABEL maintainer="vvakame@gmail.com"
 # GAE/Go build & testing environment for Circle CI 2.0
 
 ENV GCLOUD_SDK_VERSION 224.0.0
+# same as google-cloud-sdk/platform/google_appengine/lib/grpcio-X.X.X
+ENV PIP_GRPCIO_VERSION 1.9.1
 ENV GOLANG_VERSION 1.11.2
 ENV DEP_VERSION 0.5.0
 ENV NODEJS_VERSION v10
@@ -11,7 +13,7 @@ ENV NODEJS_VERSION v10
 RUN mkdir /work
 WORKDIR /work
 
-# for Cloud Datastore Emulator: openjdk-11-jre-headless
+# for Cloud Datastore Emulator: openjdk-11-jre-headless python-pip
 #   https://issuetracker.google.com/issues/119212211
 
 RUN apt-get update && \
@@ -22,9 +24,12 @@ RUN apt-get update && \
         build-essential git unzip \
         ssh \
         python \
-        openjdk-11-jre-headless && \
+        openjdk-11-jre-headless python-pip && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+# for Cloud Datastore Emulator: grpcio
+RUN pip install grpcio==${PIP_GRPCIO_VERSION}
 
 # setup Google Cloud SDK & GAE/Go Environment
 ENV PATH=/work/google-cloud-sdk/bin:/work/google-cloud-sdk/platform/google_appengine:$PATH
