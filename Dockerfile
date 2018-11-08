@@ -11,6 +11,9 @@ ENV NODEJS_VERSION v10
 RUN mkdir /work
 WORKDIR /work
 
+# for Cloud Datastore Emulator: openjdk-11-jre-headless
+#   https://issuetracker.google.com/issues/119212211
+
 RUN apt-get update && \
     ln -sf /usr/share/zoneinfo/UTC /etc/localtime && \
     apt-get install -y --no-install-recommends \
@@ -18,7 +21,8 @@ RUN apt-get update && \
         curl ca-certificates \
         build-essential git unzip \
         ssh \
-        python && \
+        python \
+        openjdk-11-jre-headless && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -30,7 +34,7 @@ RUN curl -o google-cloud-sdk.tar.gz https://dl.google.com/dl/cloudsdk/channels/r
     ./google-cloud-sdk/install.sh --quiet && \
     gcloud --quiet components install app-engine-go && \
     chmod +x /work/google-cloud-sdk/platform/google_appengine/goapp /work/google-cloud-sdk/platform/google_appengine/appcfg.py
-# RUN gcloud --quiet components install docker-credential-gcr kubectl alpha beta
+# RUN gcloud --quiet components install cloud-datastore-emulator docker-credential-gcr kubectl alpha beta
 
 # setup go environment
 ENV PATH=$PATH:/go/bin:/usr/local/go/bin
