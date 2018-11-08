@@ -22,3 +22,12 @@ Circle CI 2.0 official image are only for 1 language.
 
 * GOPATH `/go`
 * Work space of tools setup `/work`
+
+## NOTE for go111 runtime testing
+
+If you want to use Cloud Datastore Emulator instead of Old SQLite Datastore backend.
+https://issuetracker.google.com/issues/119212211
+
+```
+$ gcloud config set disable_usage_reporting true
+```

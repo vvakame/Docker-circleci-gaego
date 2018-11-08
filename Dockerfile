@@ -4,12 +4,17 @@ LABEL maintainer="vvakame@gmail.com"
 # GAE/Go build & testing environment for Circle CI 2.0
 
 ENV GCLOUD_SDK_VERSION 224.0.0
+# same as google-cloud-sdk/platform/google_appengine/lib/grpcio-X.X.X
+ENV PIP_GRPCIO_VERSION 1.9.1
 ENV GOLANG_VERSION 1.11.2
 ENV DEP_VERSION 0.5.0
 ENV NODEJS_VERSION v10
 
 RUN mkdir /work
 WORKDIR /work
+
+# for Cloud Datastore Emulator: openjdk-11-jre-headless python-pip
+#   https://issuetracker.google.com/issues/119212211
 
 RUN apt-get update && \
     ln -sf /usr/share/zoneinfo/UTC /etc/localtime && \
@@ -18,9 +23,13 @@ RUN apt-get update && \
         curl ca-certificates \
         build-essential git unzip \
         ssh \
-        python && \
+        python \
+        openjdk-11-jre-headless python-pip && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+# for Cloud Datastore Emulator: grpcio
+RUN pip install grpcio==${PIP_GRPCIO_VERSION}
 
 # setup Google Cloud SDK & GAE/Go Environment
 ENV PATH=/work/google-cloud-sdk/bin:/work/google-cloud-sdk/platform/google_appengine:$PATH
@@ -30,7 +39,7 @@ RUN curl -o google-cloud-sdk.tar.gz https://dl.google.com/dl/cloudsdk/channels/r
     ./google-cloud-sdk/install.sh --quiet && \
     gcloud --quiet components install app-engine-go && \
     chmod +x /work/google-cloud-sdk/platform/google_appengine/goapp /work/google-cloud-sdk/platform/google_appengine/appcfg.py
-# RUN gcloud --quiet components install docker-credential-gcr kubectl alpha beta
+# RUN gcloud --quiet components install cloud-datastore-emulator docker-credential-gcr kubectl alpha beta
 
 # setup go environment
 ENV PATH=$PATH:/go/bin:/usr/local/go/bin
