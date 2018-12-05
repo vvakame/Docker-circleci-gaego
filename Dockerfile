@@ -24,6 +24,7 @@ RUN apt-get update && \
         build-essential git unzip \
         ssh \
         python \
+        gettext-base \
         openjdk-11-jre-headless python-pip && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
