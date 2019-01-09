@@ -26,8 +26,7 @@ Circle CI 2.0 official image are only for 1 language.
 ## NOTE for go111 runtime testing
 
 If you want to use Cloud Datastore Emulator instead of Old SQLite Datastore backend.
-https://issuetracker.google.com/issues/119212211
+see below issues.
 
-```
-$ gcloud config set disable_usage_reporting true
-```
+https://issuetracker.google.com/issues/119212211
+https://github.com/golang/appengine/pull/173
