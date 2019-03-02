@@ -1,9 +1,9 @@
-FROM ubuntu:18.04
+FROM ubuntu:18.10
 LABEL maintainer="vvakame@gmail.com"
 
 # GAE/Go build & testing environment for Circle CI 2.0
 
-ENV GCLOUD_SDK_VERSION 231.0.0
+ENV GCLOUD_SDK_VERSION 236.0.0
 # same as google-cloud-sdk/platform/google_appengine/lib/grpcio-X.X.X
 ENV PIP_GRPCIO_VERSION 1.9.1
 ENV GOLANG_VERSION 1.11.5
