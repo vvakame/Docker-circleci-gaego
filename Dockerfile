@@ -1,9 +1,9 @@
-FROM ubuntu:19.04
+FROM ubuntu:19.10
 LABEL maintainer="vvakame@gmail.com"
 
 # GAE/Go build & testing environment for Circle CI 2.0
 
-ENV GCLOUD_SDK_VERSION 266.0.0
+ENV GCLOUD_SDK_VERSION 273.0.0
 # same as google-cloud-sdk/platform/google_appengine/lib/grpcio-X.X.X
 ENV PIP_GRPCIO_VERSION 1.20.0
 ENV GOLANG_VERSION 1.11.13
@@ -39,7 +39,7 @@ RUN curl -o google-cloud-sdk.tar.gz https://dl.google.com/dl/cloudsdk/channels/r
     rm google-cloud-sdk.tar.gz && \
     ./google-cloud-sdk/install.sh --quiet && \
     gcloud --quiet components install app-engine-go && \
-    chmod +x /work/google-cloud-sdk/platform/google_appengine/goapp /work/google-cloud-sdk/platform/google_appengine/appcfg.py
+    chmod +x /work/google-cloud-sdk/platform/google_appengine/appcfg.py
 # RUN gcloud --quiet components install cloud-datastore-emulator docker-credential-gcr kubectl alpha beta
 
 # setup go environment
